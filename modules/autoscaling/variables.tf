@@ -8,6 +8,12 @@ variable "launch_template_name" {
   description = "Name for launch template"
 }
 
+variable "key_name" {
+  type        = string
+  description = "Key pair name"
+  default     = null
+}
+
 variable "image_id" {
   type        = string
   description = "EC2 image ID"

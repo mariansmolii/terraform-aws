@@ -4,6 +4,7 @@ resource "aws_launch_template" "this" {
   instance_type = var.instance_type
 
   user_data = filebase64(var.user_data)
+  key_name  = var.key_name
 
   network_interfaces {
     security_groups = [var.security_group_id]
