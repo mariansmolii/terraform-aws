@@ -45,3 +45,30 @@ variable "lb_sg_ports" {
   description = "Ports to allow LB traffic"
   default     = ["80", "443"]
 }
+
+variable "my_ip" {
+  type        = string
+  description = "My IP address"
+}
+
+variable "bastion_key_name" {
+  type        = string
+  description = "Bastion key name"
+  default     = "bastion-key"
+}
+
+variable "bastion_filename" {
+  type        = string
+  description = "Path where bastion files will be placed"
+}
+
+variable "app_key_name" {
+  type        = string
+  description = "App key name"
+  default     = "app-key"
+}
+
+variable "app_filename" {
+  type        = string
+  description = "Path where app files is placed"
+}
