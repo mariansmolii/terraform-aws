@@ -210,6 +210,12 @@ resource "aws_autoscaling_group" "app_asg" {
     id      = aws_launch_template.app_template.id
     version = aws_launch_template.app_template.latest_version
   }
+
+  tag {
+    key                 = "Name"
+    value               = "${var.environment}-app-asg"
+    propagate_at_launch = true
+  }
 }
 
 resource "aws_autoscaling_policy" "scale_up" {
@@ -260,4 +266,18 @@ resource "aws_cloudwatch_metric_alarm" "scale_down" {
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.app_asg.name
   }
+}
+
+data "aws_instances" "asg_instances" {
+  filter {
+    name   = "tag:Name"
+    values = ["${var.environment}-app-asg"]
+  }
+
+  filter {
+    name   = "instance-state-name"
+    values = ["running"]
+  }
+
+  depends_on = [aws_autoscaling_group.app_asg]
 }
