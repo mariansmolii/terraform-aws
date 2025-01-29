@@ -16,11 +16,6 @@ variable "secret_key" {
   sensitive   = true
 }
 
-variable "environment" {
-  type    = string
-  default = "dev"
-}
-
 variable "vpc_cidr_block" {
   type        = string
   description = "CIDR block for VPC"
@@ -49,34 +44,4 @@ variable "lb_sg_ports" {
   type        = list(string)
   description = "Ports to allow LB traffic"
   default     = ["80", "443"]
-}
-
-variable "image_id" {
-  type        = string
-  description = "EC2 image ID"
-  default     = "ami-0a628e1e89aaedf80"
-}
-
-variable "instance_type" {
-  type        = string
-  description = "EC2 instance type"
-  default     = "t2.micro"
-}
-
-variable "asg_min" {
-  type        = number
-  description = "Min numbers of servers in ASG"
-  default     = 2
-}
-
-variable "asg_max" {
-  type        = number
-  description = "Max numbers of servers in ASG"
-  default     = 6
-}
-
-variable "asg_desired" {
-  type        = number
-  description = "Desired numbers of servers in ASG"
-  default     = 2
 }
