@@ -40,10 +40,9 @@ variable "map_public_ip_on_launch" {
   default = true
 }
 
-variable "nat_count" {
-  type        = number
-  description = "Number of NAT gateways to create"
-  default     = 1
+variable "enable_nat" {
+  type = bool
+  description = "Enable or disable NAT gateways"
 }
 
 variable "nat_connection_type" {

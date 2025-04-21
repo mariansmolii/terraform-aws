@@ -1,7 +1,7 @@
 module "vpc" {
   source              = "./modules/vpc"
   vpc_cidr_block      = var.vpc_cidr_block
-  nat_count           = 2
+  enable_nat          = true
   public_subnet_cidr  = var.public_subnet_cidr
   private_subnet_cidr = var.private_subnet_cidr
   availability_zones  = var.availability_zones
