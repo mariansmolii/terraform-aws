@@ -93,7 +93,7 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_route_table_association" "private_subnet_association" {
-  count          = length(var.private_subnet_cidr)
+  count          = var.enable_nat ? length(var.private_subnet_cidr) : 0
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = element(aws_route_table.private_rtb[*].id, count.index % max(length(aws_route_table.private_rtb), 1))
 }
