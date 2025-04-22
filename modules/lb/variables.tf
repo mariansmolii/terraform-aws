@@ -51,6 +51,26 @@ variable "tg_protocol" {
   default     = "HTTP"
 }
 
+variable "health_check" {
+  description = "Health check configuration for target group"
+  type = object({
+    path                = string
+    protocol            = string
+    interval            = number
+    timeout             = number
+    healthy_threshold   = number
+    unhealthy_threshold = number
+  })
+  default = {
+    path                = "/"
+    protocol            = "HTTP"
+    interval            = 30
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+  }
+}
+
 variable "listener_port" {
   type        = number
   description = "Port for listener"
