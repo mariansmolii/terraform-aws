@@ -12,3 +12,7 @@ output "private_subnet_ids" {
 output "igw_id" {
   value = aws_internet_gateway.igw.id
 }
+
+output "private_rtb_assoc_ids" {
+  value = aws_route_table_association.private_subnet_association[*].id
+}
