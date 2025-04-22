@@ -75,7 +75,7 @@ resource "aws_route_table" "private_rtb" {
   }
 
   depends_on = [aws_nat_gateway.nat_gateway]
-  
+
   tags = {
     Name = "${var.environment}-private-rtb-${count.index + 1}"
   }
@@ -95,5 +95,5 @@ resource "aws_subnet" "private" {
 resource "aws_route_table_association" "private_subnet_association" {
   count          = var.enable_nat ? length(var.private_subnet_cidr) : 0
   subnet_id      = aws_subnet.private[count.index].id
-  route_table_id = element(aws_route_table.private_rtb[*].id, count.index % max(length(aws_route_table.private_rtb), 1))
+  route_table_id = aws_route_table.private_rtb[count.index % max(length(aws_route_table.private_rtb), 1)].id
 }
