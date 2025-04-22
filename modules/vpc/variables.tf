@@ -41,7 +41,7 @@ variable "map_public_ip_on_launch" {
 }
 
 variable "enable_nat" {
-  type = bool
+  type        = bool
   description = "Enable or disable NAT gateways"
 }
 
