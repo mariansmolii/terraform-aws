@@ -70,5 +70,5 @@ variable "app_key_name" {
 
 variable "app_filename" {
   type        = string
-  description = "Path where app files is placed"
+  description = "Path where app files will be placed"
 }

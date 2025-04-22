@@ -16,6 +16,15 @@ resource "aws_lb_target_group" "lb_tg" {
   port     = var.tg_port
   protocol = var.tg_protocol
   vpc_id   = var.vpc_id
+
+  health_check {
+    path                = var.health_check.path
+    protocol            = var.health_check.protocol
+    interval            = var.health_check.interval
+    timeout             = var.health_check.timeout
+    healthy_threshold   = var.health_check.healthy_threshold
+    unhealthy_threshold = var.health_check.unhealthy_threshold
+  }
 }
 
 resource "aws_lb_listener" "lb_listener" {

@@ -1,7 +1,7 @@
 module "vpc" {
   source              = "./modules/vpc"
   vpc_cidr_block      = var.vpc_cidr_block
-  nat_count           = 2
+  enable_nat          = true
   public_subnet_cidr  = var.public_subnet_cidr
   private_subnet_cidr = var.private_subnet_cidr
   availability_zones  = var.availability_zones
@@ -43,6 +43,15 @@ module "lb_sg" {
   }]
 }
 
+module "lb" {
+  source            = "./modules/lb"
+  vpc_id            = module.vpc.vpc_id
+  lb_name           = "app-lb"
+  lb_sg_id          = module.lb_sg.sg_id
+  public_subnet_ids = module.vpc.public_subnet_ids
+  depends_on_igw    = module.vpc.igw_id
+}
+
 module "app_sg" {
   source         = "./modules/security_group"
   vpc_id         = module.vpc.vpc_id
@@ -55,15 +64,6 @@ module "app_sg" {
     port         = 22
     source_sg_id = module.bastion_sg.sg_id
   }]
-}
-
-module "lb" {
-  source            = "./modules/lb"
-  vpc_id            = module.vpc.vpc_id
-  lb_name           = "app-lb"
-  lb_sg_id          = module.lb_sg.sg_id
-  public_subnet_ids = module.vpc.public_subnet_ids
-  depends_on_igw    = module.vpc.igw_id
 }
 
 module "app_key_pair" {
@@ -85,4 +85,6 @@ module "app_asg" {
     desired = 2
     max     = 6
   }
+
+  depends_on = [module.vpc.private_rtb_assoc_ids]
 }
